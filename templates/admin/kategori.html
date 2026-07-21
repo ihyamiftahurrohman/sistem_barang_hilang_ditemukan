@@ -1,0 +1,72 @@
+{% extends 'admin/admin_base.html' %}
+
+{% block title %}Kategori Barang{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+    <h1 class="h2">Kategori Barang</h1>
+</div>
+
+<div class="row">
+    <!-- Form Tambah Kategori -->
+    <div class="col-md-4 mb-4">
+        <div class="card border-0 shadow-sm rounded-3">
+            <div class="card-header bg-primary text-white fw-bold rounded-top-3">
+                <i class="bi bi-plus-circle me-2"></i>Tambah Kategori
+            </div>
+            <div class="card-body">
+                <form method="POST" action="{{ url_for('admin.kategori_tambah') }}">
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Nama Kategori</label>
+                        <input type="text" name="nama_kategori" class="form-control" required placeholder="Contoh: Elektronik, Dompet, Kunci">
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">
+                        <i class="bi bi-plus-lg me-1"></i> Tambah
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tabel Kategori -->
+    <div class="col-md-8">
+        <div class="card border-0 shadow-sm rounded-3">
+            <div class="card-header bg-white fw-bold">
+                <i class="bi bi-tags me-2"></i>Daftar Kategori ({{ kategoris|length }})
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle mb-0">
+                        <thead class="table-light">
+                            <tr>
+                                <th style="width: 60px;">No</th>
+                                <th>Nama Kategori</th>
+                                <th style="width: 100px;" class="text-center">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% if kategoris %}
+                                {% for kat in kategoris %}
+                                <tr>
+                                    <td>{{ loop.index }}</td>
+                                    <td>{{ kat.nama_kategori }}</td>
+                                    <td class="text-center">
+                                        <a href="{{ url_for('admin.kategori_hapus', id=kat.id) }}" class="btn btn-sm btn-outline-danger" onclick="return confirm('Yakin ingin menghapus kategori ini?')">
+                                            <i class="bi bi-trash"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            {% else %}
+                                <tr>
+                                    <td colspan="3" class="text-center text-muted py-4">Belum ada kategori.</td>
+                                </tr>
+                            {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

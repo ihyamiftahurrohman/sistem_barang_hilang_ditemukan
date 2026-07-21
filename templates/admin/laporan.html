@@ -1,0 +1,65 @@
+{% extends 'admin/admin_base.html' %}
+
+{% block title %}Laporan Masuk{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+    <h1 class="h2">Laporan Masuk</h1>
+    <span class="badge bg-secondary fs-6">{{ laporans|length }} laporan</span>
+</div>
+
+<div class="card border-0 shadow-sm rounded-3">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th style="width: 50px;">No</th>
+                        <th>Nama Pelapor</th>
+                        <th>Barang Dilaporkan</th>
+                        <th>No. HP</th>
+                        <th>Email</th>
+                        <th>Tanggal Lapor</th>
+                        <th style="width: 100px;" class="text-center">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if laporans %}
+                        {% for lap in laporans %}
+                        <tr>
+                            <td>{{ loop.index }}</td>
+                            <td class="fw-bold">{{ lap.nama_pelapor }}</td>
+                            <td>
+                                {% if lap.barang %}
+                                    {{ lap.barang.nama_barang }}
+                                    <br>
+                                    {% if lap.barang.status == 'Hilang' %}
+                                        <span class="badge bg-danger rounded-pill">Hilang</span>
+                                    {% else %}
+                                        <span class="badge bg-success rounded-pill">Ditemukan</span>
+                                    {% endif %}
+                                {% else %}
+                                    <span class="text-muted">-</span>
+                                {% endif %}
+                            </td>
+                            <td>{{ lap.no_hp }}</td>
+                            <td>{{ lap.email or '-' }}</td>
+                            <td>{{ lap.tanggal_lapor.strftime('%d/%m/%Y %H:%M') }}</td>
+                            <td class="text-center">
+                                <a href="{{ url_for('admin.laporan_hapus', id=lap.id) }}" class="btn btn-sm btn-outline-danger" onclick="return confirm('Yakin ingin menghapus laporan ini?')">
+                                    <i class="bi bi-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    {% else %}
+                        <tr>
+                            <td colspan="7" class="text-center text-muted py-4">Belum ada laporan masuk.</td>
+                        </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
