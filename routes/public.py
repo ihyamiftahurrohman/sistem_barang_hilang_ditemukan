@@ -9,7 +9,9 @@ public_bp = Blueprint('public', __name__)
 
 @public_bp.route('/')
 def index():
-    return render_template('public/index.html')
+    total_hilang = Barang.query.filter_by(status='Hilang').count()
+    total_ditemukan = Barang.query.filter_by(status='Ditemukan').count()
+    return render_template('public/index.html', total_hilang=total_hilang, total_ditemukan=total_ditemukan)
 
 @public_bp.route('/tentang')
 def tentang():
