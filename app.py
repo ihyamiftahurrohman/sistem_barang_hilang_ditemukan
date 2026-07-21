@@ -24,8 +24,15 @@ def create_app(config_class=Config):
 
     # Buat tabel database (jika belum ada)
     with app.app_context():
-        import models.models
+        from models.models import Admin, Kategori
         db.create_all()
+        
+        # Pastikan akun admin default tersedia
+        if not Admin.query.first():
+            hashed_password = bcrypt.generate_password_hash('admin123').decode('utf-8')
+            new_admin = Admin(username='admin', password_hash=hashed_password)
+            db.session.add(new_admin)
+            db.session.commit()
 
     return app
 
