@@ -2,9 +2,93 @@
 
 {% block content %}
 <div class="container py-5">
-    <h2 class="mb-4">Detail Barang (ID: {{ id }})</h2>
-    <div class="alert alert-info">
-        Halaman detail barang sedang dalam tahap pengembangan.
+    <div class="row mb-4">
+        <div class="col-12">
+            <a href="javascript:history.back()" class="text-decoration-none text-muted">
+                <i class="bi bi-arrow-left me-1"></i> Kembali
+            </a>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-5 mb-4">
+            <div class="card border-0 shadow-sm rounded-4 overflow-hidden h-100">
+                {% if barang.foto %}
+                    <img src="{{ url_for('static', filename='../uploads/' ~ barang.foto) }}" class="img-fluid w-100 h-100 object-fit-cover" alt="{{ barang.nama_barang }}">
+                {% else %}
+                    <div class="bg-light d-flex align-items-center justify-content-center h-100 text-muted" style="min-height: 300px;">
+                        <div class="text-center">
+                            <i class="bi bi-image display-1 mb-2"></i>
+                            <p>Tidak ada foto</p>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+        
+        <div class="col-md-7">
+            <div class="card border-0 shadow-sm rounded-4 h-100">
+                <div class="card-body p-4 p-md-5">
+                    <div class="d-flex align-items-start justify-content-between mb-3">
+                        <h2 class="fw-bold mb-0">{{ barang.nama_barang }}</h2>
+                        <span class="badge rounded-pill {% if barang.status == 'Hilang' %}bg-danger{% else %}bg-success{% endif %} fs-6 px-3 py-2">
+                            {{ barang.status }}
+                        </span>
+                    </div>
+                    
+                    <hr class="text-muted opacity-25">
+                    
+                    <div class="row mb-4 mt-4">
+                        <div class="col-sm-6 mb-3">
+                            <div class="text-muted small text-uppercase fw-bold mb-1">Kategori</div>
+                            <div class="fs-5">{{ barang.kategori.nama_kategori if barang.kategori else '-' }}</div>
+                        </div>
+                        <div class="col-sm-6 mb-3">
+                            <div class="text-muted small text-uppercase fw-bold mb-1">Warna</div>
+                            <div class="fs-5">{{ barang.warna or '-' }}</div>
+                        </div>
+                        <div class="col-sm-6 mb-3">
+                            <div class="text-muted small text-uppercase fw-bold mb-1">Lokasi</div>
+                            <div class="fs-5"><i class="bi bi-geo-alt me-1 text-danger"></i> {{ barang.lokasi }}</div>
+                        </div>
+                        <div class="col-sm-6 mb-3">
+                            <div class="text-muted small text-uppercase fw-bold mb-1">Tanggal</div>
+                            <div class="fs-5"><i class="bi bi-calendar-event me-1 text-primary"></i> {{ barang.tanggal.strftime('%d %B %Y') }}</div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <div class="text-muted small text-uppercase fw-bold mb-2">Deskripsi / Ciri-Ciri</div>
+                        <div class="p-3 bg-light rounded-3 border">
+                            {{ barang.deskripsi or 'Tidak ada deskripsi tambahan.' }}
+                        </div>
+                    </div>
+                    
+                    {% if barang.laporan %}
+                        {% set laporan = barang.laporan[0] %}
+                        <div class="alert alert-secondary border-0 shadow-sm rounded-3 mt-4">
+                            <h5 class="fw-bold mb-3"><i class="bi bi-person-badge me-2"></i>Informasi Pelapor</h5>
+                            <ul class="list-unstyled mb-0">
+                                <li class="mb-2"><strong>Nama:</strong> {{ laporan.nama_pelapor }}</li>
+                                {% if laporan.no_hp %}
+                                <li class="mb-2"><strong>No. HP/WA:</strong> 
+                                    <a href="https://wa.me/{{ laporan.no_hp|replace('+', '')|replace(' ', '')|replace('-', '') }}" target="_blank" class="text-decoration-none">
+                                        {{ laporan.no_hp }} <i class="bi bi-whatsapp text-success ms-1"></i>
+                                    </a>
+                                </li>
+                                {% endif %}
+                                {% if laporan.email %}
+                                <li><strong>Email:</strong> <a href="mailto:{{ laporan.email }}" class="text-decoration-none">{{ laporan.email }}</a></li>
+                                {% endif %}
+                            </ul>
+                            <div class="mt-3 pt-3 border-top border-secondary border-opacity-25 text-muted small">
+                                Dilaporkan pada: {{ laporan.tanggal_lapor.strftime('%d %b %Y, %H:%M') }}
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}

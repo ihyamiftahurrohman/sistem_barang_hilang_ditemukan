@@ -2,9 +2,31 @@
 
 {% block content %}
 <div class="container py-5">
-    <h2 class="mb-4">Tentang Kami</h2>
-    <div class="alert alert-info">
-        Halaman tentang kami sedang dalam tahap pengembangan.
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <h2 class="fw-bold mb-4 text-center">Tentang Kami</h2>
+            <div class="card border-0 shadow-sm rounded-4">
+                <div class="card-body p-4 p-md-5">
+                    <p class="lead text-muted text-center mb-5">
+                        Sistem Informasi Pendataan Barang Hilang & Ditemukan adalah platform yang dibuat untuk membantu mahasiswa dan civitas akademika di lingkungan kampus.
+                    </p>
+                    
+                    <h5 class="fw-bold"><i class="bi bi-shield-check text-success me-2"></i>Visi Kami</h5>
+                    <p class="text-muted mb-4">Menciptakan lingkungan kampus yang jujur, aman, dan saling peduli melalui pemanfaatan teknologi informasi untuk pengembalian barang yang hilang.</p>
+                    
+                    <h5 class="fw-bold"><i class="bi bi-gear-fill text-primary me-2"></i>Bagaimana Sistem Ini Bekerja?</h5>
+                    <ul class="text-muted mb-4">
+                        <li class="mb-2"><strong>Pelaporan Barang Hilang:</strong> Mahasiswa yang kehilangan barang dapat melaporkannya melalui form yang tersedia, mencantumkan ciri-ciri dan lokasi kehilangan.</li>
+                        <li class="mb-2"><strong>Pelaporan Barang Ditemukan:</strong> Siapa pun yang menemukan barang yang bukan miliknya dapat mendaftarkan barang tersebut di sistem kami agar dapat segera diklaim oleh pemiliknya.</li>
+                        <li class="mb-2"><strong>Verifikasi Admin:</strong> Setiap data yang masuk akan kami pantau untuk memastikan validitas dan keamanan informasi.</li>
+                    </ul>
+                    
+                    <div class="alert alert-info mt-5 border-0 rounded-3">
+                        <i class="bi bi-info-circle-fill me-2"></i> Selalu pastikan Anda memberikan bukti kepemilikan yang sah saat mengklaim barang yang ditemukan.
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}

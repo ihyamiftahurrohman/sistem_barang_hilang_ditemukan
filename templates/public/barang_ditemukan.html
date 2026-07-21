@@ -2,9 +2,54 @@
 
 {% block content %}
 <div class="container py-5">
-    <h2 class="mb-4">Daftar Barang Ditemukan</h2>
-    <div class="alert alert-info">
-        Halaman daftar barang ditemukan sedang dalam tahap pengembangan.
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold text-success"><i class="bi bi-check-circle me-2"></i>Daftar Barang Ditemukan</h2>
+        <a href="{{ url_for('public.lapor_ditemukan') }}" class="btn btn-success rounded-pill">
+            <i class="bi bi-plus-lg me-1"></i> Lapor Penemuan
+        </a>
+    </div>
+    
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <div class="row g-4">
+        {% if barangs %}
+            {% for barang in barangs %}
+            <div class="col-md-4 col-lg-3">
+                <div class="card h-100 border-0 shadow-sm card-hover rounded-4 overflow-hidden">
+                    {% if barang.foto %}
+                        <img src="{{ url_for('static', filename='../uploads/' ~ barang.foto) }}" class="card-img-top object-fit-cover" alt="{{ barang.nama_barang }}" style="height: 200px;">
+                    {% else %}
+                        <div class="card-img-top bg-light d-flex align-items-center justify-content-center text-muted" style="height: 200px;">
+                            <i class="bi bi-image display-4"></i>
+                        </div>
+                    {% endif %}
+                    <div class="card-body p-4">
+                        <h5 class="card-title fw-bold text-truncate">{{ barang.nama_barang }}</h5>
+                        <p class="card-text text-muted small mb-3">
+                            <i class="bi bi-geo-alt me-1 text-success"></i> {{ barang.lokasi }}<br>
+                            <i class="bi bi-calendar-event me-1 text-success"></i> {{ barang.tanggal.strftime('%d %b %Y') }}
+                        </p>
+                        <a href="{{ url_for('public.detail_barang', id=barang.id) }}" class="btn btn-outline-success w-100 rounded-pill">Detail Barang</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <div class="col-12 text-center py-5">
+                <div class="text-muted mb-3"><i class="bi bi-box2-heart display-1"></i></div>
+                <h4 class="text-muted">Belum ada laporan barang ditemukan.</h4>
+                <p class="text-muted">Jika Anda menemukan barang yang bukan milik Anda, segera laporkan agar dapat dikembalikan ke pemiliknya.</p>
+            </div>
+        {% endif %}
     </div>
 </div>
 {% endblock %}
