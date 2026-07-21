@@ -1,0 +1,73 @@
+{% extends 'public/base.html' %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section text-center">
+    <div class="container">
+        <h1 class="display-4 fw-bold mb-4">Sistem Pendataan Barang Hilang & Ditemukan</h1>
+        <p class="lead mb-4">Lingkungan Kampus yang Aman, Jujur, dan Peduli. <br> Mari saling membantu menemukan barang yang hilang.</p>
+        <div class="d-flex justify-content-center gap-3">
+            <a href="{{ url_for('public.lapor_hilang') }}" class="btn btn-danger btn-lg rounded-pill shadow-sm">
+                <i class="bi bi-search me-2"></i> Lapor Kehilangan
+            </a>
+            <a href="{{ url_for('public.lapor_ditemukan') }}" class="btn btn-light btn-lg text-primary rounded-pill shadow-sm">
+                <i class="bi bi-box-seam me-2"></i> Lapor Penemuan
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="py-5">
+    <div class="container">
+        <div class="row text-center g-4">
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm card-hover p-4 rounded-4">
+                    <div class="text-primary mb-3">
+                        <i class="bi bi-search display-4"></i>
+                    </div>
+                    <h3 class="h4 fw-bold">Cari Barang Hilang</h3>
+                    <p class="text-muted">Lihat daftar barang yang dilaporkan hilang oleh mahasiswa lain. Mungkin Anda yang menemukannya!</p>
+                    <a href="{{ url_for('public.barang_hilang') }}" class="btn btn-outline-primary mt-auto rounded-pill">Lihat Daftar</a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm card-hover p-4 rounded-4">
+                    <div class="text-success mb-3">
+                        <i class="bi bi-check-circle display-4"></i>
+                    </div>
+                    <h3 class="h4 fw-bold">Barang Ditemukan</h3>
+                    <p class="text-muted">Cek daftar barang yang telah ditemukan di sekitar area kampus. Segera klaim jika itu milik Anda.</p>
+                    <a href="{{ url_for('public.barang_ditemukan') }}" class="btn btn-outline-success mt-auto rounded-pill">Lihat Daftar</a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm card-hover p-4 rounded-4">
+                    <div class="text-info mb-3">
+                        <i class="bi bi-shield-check display-4"></i>
+                    </div>
+                    <h3 class="h4 fw-bold">Aman & Terpercaya</h3>
+                    <p class="text-muted">Setiap laporan diverifikasi oleh Admin. Data Anda aman dan sistem dirancang untuk memudahkan mahasiswa.</p>
+                    <a href="{{ url_for('public.tentang') }}" class="btn btn-outline-info mt-auto rounded-pill">Selengkapnya</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Statistik Singkat -->
+<section class="bg-white py-5">
+    <div class="container">
+        <div class="row text-center g-4">
+            <div class="col-md-6">
+                <h2 class="display-5 fw-bold text-danger">0</h2>
+                <p class="text-muted text-uppercase fw-bold">Total Barang Hilang Dilaporkan</p>
+            </div>
+            <div class="col-md-6">
+                <h2 class="display-5 fw-bold text-success">0</h2>
+                <p class="text-muted text-uppercase fw-bold">Total Barang Ditemukan</p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
