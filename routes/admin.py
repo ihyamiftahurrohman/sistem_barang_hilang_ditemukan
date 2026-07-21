@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash, session
 from extensions import db, bcrypt
-from models.models import Admin, Kategori, Barang, Laporan
+from models.models import Admin, Kategori, Barang, Laporan, Kontak
 
 admin_bp = Blueprint('admin', __name__)
 
@@ -113,4 +113,25 @@ def laporan_hapus(id):
     db.session.commit()
     flash('Laporan berhasil dihapus.', 'success')
     return redirect(url_for('admin.laporan'))
+
+# ==================== KONTAK ====================
+@admin_bp.route('/kontak', methods=['GET', 'POST'])
+@login_required
+def kontak():
+    kontak_info = Kontak.query.first()
+    if request.method == 'POST':
+        if not kontak_info:
+            kontak_info = Kontak()
+            db.session.add(kontak_info)
+            
+        kontak_info.deskripsi = request.form.get('deskripsi')
+        kontak_info.alamat = request.form.get('alamat')
+        kontak_info.email = request.form.get('email')
+        kontak_info.telepon = request.form.get('telepon')
+        
+        db.session.commit()
+        flash('Data kontak berhasil diperbarui.', 'success')
+        return redirect(url_for('admin.kontak'))
+        
+    return render_template('admin/kontak.html', kontak=kontak_info)
 

@@ -1,0 +1,52 @@
+{% extends 'admin/admin_base.html' %}
+
+{% block title %}Pengaturan Kontak{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+    <h1 class="h2">Pengaturan Kontak</h1>
+</div>
+
+<div class="row">
+    <div class="col-lg-8">
+        <div class="card border-0 shadow-sm rounded-3">
+            <div class="card-header bg-white fw-bold py-3">
+                <i class="bi bi-pencil-square me-2"></i>Ubah Informasi Hubungi Kami
+            </div>
+            <div class="card-body p-4">
+                <form method="POST" action="{{ url_for('admin.kontak') }}">
+                    <div class="mb-4">
+                        <label class="form-label fw-bold text-muted">Deskripsi Halaman</label>
+                        <textarea class="form-control" name="deskripsi" rows="3" required>{{ kontak.deskripsi if kontak else '' }}</textarea>
+                        <div class="form-text">Teks ini akan muncul di bagian atas halaman Hubungi Kami.</div>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label class="form-label fw-bold text-muted"><i class="bi bi-geo-alt-fill text-danger me-1"></i> Alamat</label>
+                        <textarea class="form-control" name="alamat" rows="2" required>{{ kontak.alamat if kontak else '' }}</textarea>
+                        <div class="form-text">Anda bisa menggunakan tag &lt;br&gt; untuk membuat baris baru.</div>
+                    </div>
+                    
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold text-muted"><i class="bi bi-envelope-fill text-primary me-1"></i> Email</label>
+                            <input type="email" class="form-control" name="email" value="{{ kontak.email if kontak else '' }}" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold text-muted"><i class="bi bi-telephone-fill text-success me-1"></i> Telepon / WhatsApp</label>
+                            <input type="text" class="form-control" name="telepon" value="{{ kontak.telepon if kontak else '' }}" required>
+                            <div class="form-text">Contoh: +62 812 3456 7890</div>
+                        </div>
+                    </div>
+                    
+                    <div class="d-grid mt-5">
+                        <button type="submit" class="btn btn-primary btn-lg">
+                            <i class="bi bi-save me-2"></i> Simpan Perubahan
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

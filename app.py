@@ -24,7 +24,7 @@ def create_app(config_class=Config):
 
     # Buat tabel database (jika belum ada)
     with app.app_context():
-        from models.models import Admin, Kategori
+        from models.models import Admin, Kategori, Kontak
         db.create_all()
         
         # Pastikan akun admin default tersedia
@@ -32,7 +32,18 @@ def create_app(config_class=Config):
             hashed_password = bcrypt.generate_password_hash('admin123').decode('utf-8')
             new_admin = Admin(username='admin', password_hash=hashed_password)
             db.session.add(new_admin)
-            db.session.commit()
+            
+        # Pastikan data kontak default tersedia
+        if not Kontak.query.first():
+            default_kontak = Kontak(
+                deskripsi="Jika Anda memiliki pertanyaan, kendala, atau membutuhkan bantuan terkait barang yang hilang/ditemukan, jangan ragu untuk menghubungi kami melalui kontak di bawah ini.",
+                alamat="Gedung Pusat Administrasi<br>Lantai 1, Ruang Kemahasiswaan",
+                email="kemahasiswaan@kampus.ac.id",
+                telepon="+62 812 3456 7890"
+            )
+            db.session.add(default_kontak)
+            
+        db.session.commit()
 
     return app
 

@@ -3,7 +3,7 @@ from werkzeug.utils import secure_filename
 import os
 from datetime import datetime
 from extensions import db
-from models.models import Kategori, Barang, Laporan
+from models.models import Kategori, Barang, Laporan, Kontak
 
 public_bp = Blueprint('public', __name__)
 
@@ -19,7 +19,8 @@ def tentang():
 
 @public_bp.route('/kontak')
 def kontak():
-    return render_template('public/kontak.html')
+    kontak_info = Kontak.query.first()
+    return render_template('public/kontak.html', kontak=kontak_info)
 
 @public_bp.route('/barang-hilang')
 def barang_hilang():

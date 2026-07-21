@@ -26,7 +26,7 @@
             <div class="col-md-4 col-lg-3">
                 <div class="card h-100 border-0 shadow-sm card-hover rounded-4 overflow-hidden">
                     {% if barang.foto %}
-                        <img src="{{ url_for('static', filename='../uploads/' ~ barang.foto) }}" class="card-img-top object-fit-cover" alt="{{ barang.nama_barang }}" style="height: 200px;">
+                        <img src="{{ url_for('static', filename='uploads/' ~ barang.foto) }}" class="card-img-top object-fit-cover" alt="{{ barang.nama_barang }}" style="height: 200px;">
                     {% else %}
                         <div class="card-img-top bg-light d-flex align-items-center justify-content-center text-muted" style="height: 200px;">
                             <i class="bi bi-image display-4"></i>

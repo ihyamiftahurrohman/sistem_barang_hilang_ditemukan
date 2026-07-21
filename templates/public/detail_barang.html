@@ -14,7 +14,7 @@
         <div class="col-md-5 mb-4">
             <div class="card border-0 shadow-sm rounded-4 overflow-hidden h-100">
                 {% if barang.foto %}
-                    <img src="{{ url_for('static', filename='../uploads/' ~ barang.foto) }}" class="img-fluid w-100 h-100 object-fit-cover" alt="{{ barang.nama_barang }}">
+                    <img src="{{ url_for('static', filename='uploads/' ~ barang.foto) }}" class="img-fluid w-100 h-100 object-fit-cover" alt="{{ barang.nama_barang }}">
                 {% else %}
                     <div class="bg-light d-flex align-items-center justify-content-center h-100 text-muted" style="min-height: 300px;">
                         <div class="text-center">

@@ -39,3 +39,11 @@ class Laporan(db.Model):
     no_hp = db.Column(db.String(20), nullable=False)
     tanggal_lapor = db.Column(db.DateTime, default=datetime.utcnow)
     keterangan = db.Column(db.Text)
+
+class Kontak(db.Model):
+    __tablename__ = 'kontak'
+    id = db.Column(db.Integer, primary_key=True)
+    deskripsi = db.Column(db.Text, nullable=False)
+    alamat = db.Column(db.String(255), nullable=False)
+    email = db.Column(db.String(150), nullable=False)
+    telepon = db.Column(db.String(50), nullable=False)

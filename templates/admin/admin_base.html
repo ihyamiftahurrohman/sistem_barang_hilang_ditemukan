@@ -105,6 +105,11 @@
                             <span class="text-uppercase text-muted" style="font-size: 0.75rem;">Lainnya</span>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link {% if request.endpoint == 'admin.kontak' %}active{% endif %}" href="{{ url_for('admin.kontak') }}">
+                                <i class="bi bi-person-lines-fill me-2"></i> Pengaturan Kontak
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="{{ url_for('public.index') }}" target="_blank">
                                 <i class="bi bi-globe me-2"></i> Lihat Web Publik
                             </a>
