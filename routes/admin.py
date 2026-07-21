@@ -92,7 +92,17 @@ def barang():
 @admin_bp.route('/barang/hapus/<int:id>')
 @login_required
 def barang_hapus(id):
+    import os
+    from flask import current_app
+    
     brg = Barang.query.get_or_404(id)
+    
+    # Hapus file foto fisik jika ada
+    if brg.foto:
+        foto_path = os.path.join(current_app.config['UPLOAD_FOLDER'], brg.foto)
+        if os.path.exists(foto_path):
+            os.remove(foto_path)
+            
     db.session.delete(brg)
     db.session.commit()
     flash('Data barang berhasil dihapus.', 'success')
@@ -108,10 +118,27 @@ def laporan():
 @admin_bp.route('/laporan/hapus/<int:id>')
 @login_required
 def laporan_hapus(id):
+    import os
+    from flask import current_app
+    
     lap = Laporan.query.get_or_404(id)
-    db.session.delete(lap)
+    
+    # Dapatkan barang terkait sebelum menghapus laporan
+    brg = lap.barang
+    
+    if brg:
+        # Hapus file foto fisik jika ada
+        if brg.foto:
+            foto_path = os.path.join(current_app.config['UPLOAD_FOLDER'], brg.foto)
+            if os.path.exists(foto_path):
+                os.remove(foto_path)
+        # Hapus barang (Laporan juga akan terhapus otomatis karena cascade, tapi aman jika kita hapus secara eksplisit)
+        db.session.delete(brg)
+    else:
+        db.session.delete(lap)
+        
     db.session.commit()
-    flash('Laporan berhasil dihapus.', 'success')
+    flash('Laporan beserta data barang terkait berhasil dihapus.', 'success')
     return redirect(url_for('admin.laporan'))
 
 # ==================== KONTAK ====================
